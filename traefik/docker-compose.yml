@@ -1,0 +1,38 @@
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - backend
+      - nextcloud-aio
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - CF_DNS_API_TOKEN_FILE=/run/secrets/cloudflare_dns_token
+    secrets:
+      - cloudflare_dns_token
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data/traefik.yml:/traefik.yml:ro
+      - ./data/dynamic_conf.yml:/dynamic_conf.yml:ro
+      - ./data/acme.json:/acme.json
+      - ./logs:/var/log/traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.mainframe.net`)"
+      - "traefik.http.routers.traefik.service=api@internal"
+
+secrets:
+  cloudflare_dns_token:
+    file: ../secrets/cloudflare_dns_token.txt
+
+networks:
+  backend:
+    external: true
+  nextcloud-aio:
+    external: true

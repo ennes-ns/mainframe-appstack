@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Header.Name}} - D&D Character Sheet</title>
+    <link rel="stylesheet" href="/static/style.css?v=21">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sheet-container">
+        <a href="/logout" class="logout-link">Logout</a>
+        
+        <header class="sheet-header">
+            <div class="char-name">
+                <label>Character Name</label>
+                <div class="field-value">{{.Header.Name}}</div>
+            </div>
+            <div class="header-info">
+                <div class="info-group">
+                    <div class="field">
+                        <label>Class & Level</label>
+                        <div class="field-value">{{.Header.ClassLevel}}</div>
+                    </div>
+                    <div class="field">
+                        <label>Background</label>
+                        <div class="field-value">{{.Header.Background}}</div>
+                    </div>
+                </div>
+                <div class="info-group">
+                    <div class="field">
+                        <label>Race</label>
+                        <div class="field-value">{{.Header.Race}}</div>
+                    </div>
+                    <div class="field">
+                        <label>Alignment</label>
+                        <div class="field-value">{{.Header.Alignment}}</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="sheet-body">
+            <!-- Left Column: Abilities & Skills -->
+            <aside class="col-left">
+                <section class="abilities">
+                    {{range $name, $ability := .Abilities}}
+                    <div class="ability-score">
+                        <label>{{$name}}</label>
+                        <div class="mod">{{if gt $ability.Mod 0}}+{{end}}{{$ability.Mod}}</div>
+                        <div class="score">{{$ability.Score}}</div>
+                        <div class="save {{if $ability.SaveProf}}proficient{{end}}">
+                            <span class="dot"></span>
+                            <span>Save: {{if gt $ability.Mod 0}}+{{end}}{{$ability.Mod}}</span>
+                        </div>
+                    </div>
+                    {{end}}
+                </section>
+
+                <section class="vitals-stats">
+                    <div class="prof-bonus">
+                        <div class="circle">+{{.Vitals.ProficiencyBonus}}</div>
+                        <label>Proficiency Bonus</label>
+                    </div>
+                    <div class="inspiration">
+                        <div class="circle">{{.Vitals.Inspiration}}</div>
+                        <label>Inspiration</label>
+                    </div>
+                </section>
+
+                <section class="skills-box">
+                    <label>Skills</label>
+                    <div class="skills-list">
+                        {{range $name, $skill := .Skills}}
+                        <div class="skill-row">
+                            <span class="dot {{if $skill.Prof}}filled{{end}} {{if $skill.Expertise}}expertise{{end}}"></span>
+                            <span class="mod">{{if gt $skill.Mod 0}}+{{end}}{{$skill.Mod}}</span>
+                            <span class="name">{{$name}}</span>
+                        </div>
+                        {{end}}
+                    </div>
+                </section>
+                
+                <section class="passive-perception">
+                    <div class="circle">{{.Vitals.PassivePerception}}</div>
+                    <label>Passive Wisdom (Perception)</label>
+                </section>
+            </aside>
+
+            <!-- Center Column: Combat & Equipment -->
+            <div class="col-center">
+                <section class="combat-header">
+                    <div class="combat-stat">
+                        <div class="shield">{{.Vitals.AC}}</div>
+                        <label>AC</label>
+                    </div>
+                    <div class="combat-stat">
+                        <div class="box">{{if gt .Vitals.Initiative 0}}+{{end}}{{.Vitals.Initiative}}</div>
+                        <label>Initiative</label>
+                    </div>
+                    <div class="combat-stat">
+                        <div class="box">{{.Vitals.Speed}}ft</div>
+                        <label>Speed</label>
+                    </div>
+                </section>
+
+                <section class="hp-box">
+                    <div class="hp-header">
+                        <label>HP Max</label>
+                        <span>{{.Vitals.HPMax}}</span>
+                    </div>
+                    <div class="current-hp">
+                        <div class="val">{{.Vitals.HPCurrent}}</div>
+                        <label>Current HP</label>
+                    </div>
+                </section>
+                
+                <section class="hit-dice-saves">
+                    <div class="hit-dice">
+                        <div class="val">{{.Vitals.HitDice}}</div>
+                        <label>Hit Dice</label>
+                    </div>
+                    <div class="death-saves">
+                        <label>Death Saves</label>
+                        <div class="saves-row">Successes <span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                        <div class="saves-row">Failures <span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    </div>
+                </section>
+
+                <section class="attacks-box">
+                    <label>Attacks & Spellcasting</label>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Weapon</th>
+                                <th>Bonus</th>
+                                <th>Damage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Attacks}}
+                            <tr>
+                                <td>{{.Name}}</td>
+                                <td>{{if gt .AtkBonus 0}}+{{end}}{{.AtkBonus}}</td>
+                                <td>{{.Damage}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                    
+                    <div class="spellbook">
+                        <div class="spell-section">
+                            <label>Cantrips</label>
+                            <table class="spell-table">
+                                <thead>
+                                    <tr>
+                                        <th>Spell</th>
+                                        <th>Range</th>
+                                        <th>Save/Atk</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{range .Spellcasting.Spells.Cantrips}}
+                                    <tr class="spell-row" title="{{.Desc}}">
+                                        <td><strong>{{.Name}}</strong><br><small>{{.School}}</small></td>
+                                        <td>{{.Range}}</td>
+                                        <td>{{.AttackSave}}</td>
+                                        <td class="spell-desc-short">{{.Desc}}</td>
+                                    </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="spell-section">
+                            <label>Level 1</label>
+                            <table class="spell-table">
+                                <tbody>
+                                    {{range .Spellcasting.Spells.Level1}}
+                                    <tr class="spell-row" title="{{.Desc}}">
+                                        <td><strong>{{.Name}}</strong><br><small>{{.School}}</small></td>
+                                        <td>{{.Range}}</td>
+                                        <td>{{.AttackSave}}</td>
+                                        <td class="spell-desc-short">{{.Desc}}</td>
+                                    </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="spell-section">
+                            <label>Level 2</label>
+                            <table class="spell-table">
+                                <tbody>
+                                    {{range .Spellcasting.Spells.Level2}}
+                                    <tr class="spell-row" title="{{.Desc}}">
+                                        <td><strong>{{.Name}}</strong><br><small>{{.School}}</small></td>
+                                        <td>{{.Range}}</td>
+                                        <td>{{.AttackSave}}</td>
+                                        <td class="spell-desc-short">{{.Desc}}</td>
+                                    </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="equipment-box">
+                    <label>Equipment & Proficiencies</label>
+                    <div class="content">
+                        <div class="proficiencies">
+                            {{range .ProficienciesLanguages.Proficiencies}}
+                            <span class="tag">{{.}}</span>
+                            {{end}}
+                        </div>
+                        <div class="inventory">
+                            {{range .Equipment.Items}}
+                            <span class="item">• {{.}}</span>
+                            {{end}}
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Features & Appearance -->
+            <aside class="col-right">
+                <section class="personality-box">
+                    <div class="trait">
+                        <label>Personality Traits</label>
+                        <p>{{.Personality.Traits}}</p>
+                    </div>
+                    <div class="trait">
+                        <label>Ideals</label>
+                        <p>{{.Personality.Ideals}}</p>
+                    </div>
+                    <div class="trait">
+                        <label>Bonds</label>
+                        <p>{{.Personality.Bonds}}</p>
+                    </div>
+                    <div class="trait">
+                        <label>Flaws</label>
+                        <p>{{.Personality.Flaws}}</p>
+                    </div>
+                </section>
+
+                <section class="features-box">
+                    <label>Features & Traits</label>
+                    <div class="features-list">
+                        {{range .FeaturesTraits}}
+                        <div class="feature">
+                            <strong>{{.Name}}</strong>
+                            <p>{{.Description}}</p>
+                        </div>
+                        {{end}}
+                    </div>
+                </section>
+            </aside>
+        </main>
+    </div>
+</body>
+</html>

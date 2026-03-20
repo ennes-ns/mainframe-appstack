@@ -1,0 +1,168 @@
+character:
+  header:
+    name: "Lazarus"
+    class_level: "Bard 3 (College of the Chanter)"
+    background: "Custom (Amnesia)"
+    player_name: ""
+    race: "Reborn"
+    alignment: "Chaotic Neutral"
+    xp: 900
+
+  abilities:
+    strength: { score: 8, mod: -1, save_prof: false }
+    dexterity: { score: 14, mod: 2, save_prof: true }
+    constitution: { score: 14, mod: 2, save_prof: false }
+    intelligence: { score: 10, mod: 0, save_prof: false }
+    wisdom: { score: 12, mod: 1, save_prof: false }
+    charisma: { score: 17, mod: 3, save_prof: true }
+
+  vitals:
+    inspiration: 3
+    proficiency_bonus: 2
+    ac: 14
+    initiative: 2
+    speed: 30
+    hp_max: 24
+    hp_current: 24
+    hp_temp: 0
+    hit_dice: "3d8"
+    death_saves: { successes: 0, failures: 0 }
+    passive_perception: 13
+
+  skills:
+    acrobatics: { mod: 2, prof: false }
+    animal_handling: { mod: 1, prof: false }
+    arcana: { mod: 2, prof: true }
+    athletics: { mod: -1, prof: false }
+    deception: { mod: 5, prof: true }
+    history: { mod: 0, prof: false }
+    insight: { mod: 5, prof: true, expertise: true }
+    intimidation: { mod: 3, prof: false }
+    investigation: { mod: 0, prof: false }
+    medicine: { mod: 1, prof: false }
+    nature: { mod: 0, prof: false }
+    perception: { mod: 3, prof: true }
+    performance: { mod: 7, prof: true, expertise: true }
+    persuasion: { mod: 5, prof: true }
+    religion: { mod: 2, prof: true }
+    sleight_of_hand: { mod: 2, prof: false }
+    stealth: { mod: 4, prof: true }
+    survival: { mod: 1, prof: false }
+
+  proficiencies_languages:
+    languages: ["Common", "Elvish", "Celestial"]
+    proficiencies: ["Light Armor", "Simple Weapons", "Hand Crossbows", "Longswords", "Rapiers", "Shortswords", "Harp (Primary)", "Lute", "Drum"]
+
+  attacks:
+    - name: "Rapier"
+      atk_bonus: 4
+      damage: "1d8+2 piercing"
+    - name: "Dagger"
+      atk_bonus: 4
+      damage: "1d4+2 piercing"
+
+  equipment:
+    money: { cp: 0, sp: 20, ep: 0, gp: 85, pp: 0 }
+    items: ["Leather Armor", "Elegant Harp", "Entertainer's Pack", "A silver locket (empty)", "Mysterious sheet music"]
+
+  personality:
+    traits: "De Vergeetachtige Troubadour; speelt meesterlijke melodieën op zijn harp die hij gisteren nog niet kende."
+    ideals: "Vrijheid. Liedjes moeten gedeeld worden, zelfs als de maker ze vergeet."
+    bonds: "Mijn harp is het enige wat ik nog had toen ik wakker werd in het graf."
+    flaws: "Amnesia door wederopstanding; ik vertrouw niemand die zegt dat hij me 'vroeger' kende."
+
+  features_traits:
+    - name: "Deathless Nature (Reborn)"
+      description: "Advantage on saves vs disease/poison, resistance to poison. Advantage on death saves. No need to eat/drink/breathe. Long rest in 4hrs (conscious)."
+    - name: "Knowledge from a Past Life"
+      description: "Roll a d6 and add to a skill check after seeing d20 result. Uses: 2/Long Rest."
+    - name: "Bardic Inspiration (d6)"
+      description: "Bonus Action to give a creature a d6 for rolls. Uses: 3/Long Rest."
+    - name: "Jack of All Trades"
+      description: "Add half proficiency (+1) to any ability check you aren't proficient in."
+    - name: "Expertise"
+      description: "Doubled proficiency for Performance and Insight."
+    - name: "Creation Concerto"
+      description: "Bonus Action, 10ft aura, spend Inspiration. Options: Nocturne (+1 AC/Resist), Requiem (+Die Dmg/Adv Death Saves), Waltz (Prof Dex Saves/+5ft Speed). Concentration."
+    - name: "Magical Musician"
+      description: "Advantage on Performance (vocals/instr). Instrument replaces Somatic/Material components."
+
+  appearance:
+    age: "Unknown"
+    height: "1.80m"
+    weight: "70kg"
+    eyes: "Milky White"
+    skin: "Pale, cold"
+    hair: "Grey/Ash"
+
+  spellcasting:
+    ability: "Charisma"
+    save_dc: 13
+    attack_bonus: 5
+    spells:
+      cantrips:
+        - name: "Vicious Mockery"
+          school: "Enchantment"
+          range: "60 ft"
+          duration: "Instantaneous"
+          components: "V"
+          attack_save: "Wis Save"
+          description: "Deals 1d4 psychic damage and disadvantage on next attack roll."
+        - name: "Prestidigitation"
+          school: "Transmutation"
+          range: "10 ft"
+          duration: "Up to 1 hour"
+          components: "V, S"
+          attack_save: "-"
+          description: "Perform minor magical tricks."
+        - name: "Light"
+          school: "Evocation"
+          range: "Touch"
+          duration: "1 hour"
+          components: "V, M"
+          attack_save: "-"
+          description: "Make an object glow."
+      level_1:
+        - name: "Healing Word"
+          school: "Evocation"
+          range: "60 ft"
+          duration: "Instantaneous"
+          components: "V"
+          attack_save: "-"
+          description: "Healing for 1d4 + Charisma modifier."
+        - name: "Thunderwave"
+          school: "Evocation"
+          range: "15 ft Cube"
+          duration: "Instantaneous"
+          components: "V, S"
+          attack_save: "Con Save"
+          description: "Deals 2d8 thunder damage and pushes away."
+        - name: "Bane"
+          school: "Enchantment"
+          range: "30 ft"
+          duration: "Conc, 1 min"
+          components: "V, S, M"
+          attack_save: "Cha Save"
+          description: "Up to 3 creatures subtract 1d4 from attack rolls/saves."
+        - name: "Disguise Self"
+          school: "Illusion"
+          range: "Self"
+          duration: "1 hour"
+          components: "V, S"
+          attack_save: "-"
+          description: "Make yourself look different."
+      level_2:
+        - name: "Shatter"
+          school: "Evocation"
+          range: "60 ft"
+          duration: "Instantaneous"
+          components: "V, S, M"
+          attack_save: "Con Save"
+          description: "Deals 3d8 thunder damage in 10ft sphere."
+        - name: "Invisibility"
+          school: "Illusion"
+          range: "Touch"
+          duration: "Conc, 1 hour"
+          components: "V, S, M"
+          attack_save: "-"
+          description: "Target becomes invisible until they attack or cast."

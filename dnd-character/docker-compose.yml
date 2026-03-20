@@ -1,0 +1,23 @@
+services:
+  dnd-character:
+    build: .
+    container_name: dnd-character
+    restart: unless-stopped
+    networks:
+      - backend
+    env_file:
+      - .env
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+    volumes:
+      - ./reference:/root/reference
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dnd.rule=Host(`dnd.mainframe.net`)"
+      - "traefik.http.routers.dnd.middlewares=tailscale-only@file"
+      - "traefik.http.services.dnd.loadbalancer.server.port=8080"
+
+networks:
+  backend:
+    external: true

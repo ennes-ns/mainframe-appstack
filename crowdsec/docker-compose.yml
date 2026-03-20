@@ -1,0 +1,21 @@
+services:
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    restart: unless-stopped
+    expose:
+      - 8080
+    environment:
+      - GID=1000
+      - COLLECTIONS=crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors
+    volumes:
+      - ./config:/etc/crowdsec
+      - ./data:/var/lib/crowdsec/data
+      - /home/ennes/docker/traefik/logs:/var/log/traefik:ro
+      - /var/log/auth.log:/var/log/auth.log:ro
+    networks:
+      - backend
+
+networks:
+  backend:
+    external: true

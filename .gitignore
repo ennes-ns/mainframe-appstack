@@ -1,0 +1,27 @@
+# Atlas Mainframe Sentinel - Docker Stack Ignore
+# No secrets, no data, just structure.
+
+# Ignore all environment files (secrets)
+**/.env
+**/*.env
+**/secrets/
+**/credentials/
+
+# Ignore data volumes (assuming common patterns)
+**/data/
+**/db/
+**/config/
+**/backups/
+**/logs/
+**/storage/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Keep structure but ignore dynamic content
+!**/docker-compose.yml
+!**/docker-compose.yaml
+!**/*.conf.template
+!**/README.md
+!**/*.sh

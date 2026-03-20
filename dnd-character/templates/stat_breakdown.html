@@ -1,0 +1,20 @@
+<div class="breakdown-view">
+    <h3>{{.Name}} Breakdown</h3>
+    <div class="breakdown-stats">
+        <div class="breakdown-row">
+            <span>Base Score</span>
+            <span>{{.Stat.Base}}</span>
+        </div>
+        {{range .Stat.Bonuses}}
+        <div class="breakdown-row bonus">
+            <span>{{.Source}} ({{.Type}})</span>
+            <span>+{{.Value}}</span>
+        </div>
+        {{end}}
+        <hr>
+        <div class="breakdown-row total">
+            <span>Total</span>
+            <span>{{.Stat.Total}}</span>
+        </div>
+    </div>
+</div>
