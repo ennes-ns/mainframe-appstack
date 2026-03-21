@@ -81,7 +81,7 @@ let telegramChatSession = null;
 function getWebSession() {
     if (!webChatSession && ai) {
         webChatSession = ai.chats.create({
-            model: "gemini-3.0-flash",
+            model: "gemini-2.5-flash",
             config: { systemInstruction: getSystemPrompt(false) }
         });
     }
@@ -91,7 +91,7 @@ function getWebSession() {
 function getTelegramSession() {
     if (!telegramChatSession && ai) {
         telegramChatSession = ai.chats.create({
-            model: "gemini-3.0-flash",
+            model: "gemini-2.5-flash",
             config: { systemInstruction: getSystemPrompt(true) }
         });
     }
