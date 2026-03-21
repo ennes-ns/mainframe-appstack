@@ -1,0 +1,11 @@
+services:
+  nexus-hub:
+    build: ./services/nexus-hub
+    container_name: oracle-nexus-hub
+    ports:
+      - "100.95.98.74:3000:3000"
+    volumes:
+      - /home/atlas/.gemini:/app/.gemini:ro
+    environment:
+      - NODE_ENV=production
+    restart: always

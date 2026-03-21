@@ -1,0 +1,13 @@
+{
+  "name": "oracle-nexus-nucleus",
+  "version": "1.0.0",
+  "description": "Centrale API voor de Oracle Nexus Hub",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mqtt": "^5.0.0"
+  }
+}
