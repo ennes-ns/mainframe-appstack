@@ -6,6 +6,23 @@ services:
       - "100.95.98.74:3000:3000"
     volumes:
       - /home/atlas/.gemini:/app/.gemini:ro
+      - /home:/home
+      - ./data:/data
     environment:
       - NODE_ENV=production
+    networks:
+      - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.oracle.rule=Host(`oracle.mainframe.net`)"
+      - "traefik.http.middlewares.tailscale-only.ipallowlist.sourcerange=100.64.0.0/10,127.0.0.1/32,172.18.0.1/32"
+      - "traefik.http.routers.oracle.middlewares=tailscale-only"
+      - "traefik.http.routers.oracle.priority=100"
+      - "traefik.http.routers.oracle.entrypoints=web,websecure"
+      - "traefik.http.routers.oracle.tls=true"
+      - "traefik.http.services.oracle.loadbalancer.server.port=3000"
     restart: always
+
+networks:
+  backend:
+    external: true
